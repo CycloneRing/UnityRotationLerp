@@ -542,6 +542,7 @@ GameObject:
   - component: {fileID: 1357214900}
   - component: {fileID: 1357214901}
   - component: {fileID: 1357214902}
+  - component: {fileID: 1357214904}
   m_Layer: 0
   m_Name: To
   m_TagString: Untagged
@@ -596,7 +597,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1357214899}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.48065233, y: -2.3106675, z: 1.0129076}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
@@ -605,6 +606,22 @@ Transform:
   m_Father: {fileID: 1826857087}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1357214904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357214899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b6994f119598f043aef278b117287db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localRotation: {x: 0, y: 0, z: 0}
+  distances: {x: 0, y: 0, z: 0}
+  lastRotation: {x: -0, y: -0, z: -0, w: 1}
+  maximumDistance: 90
 --- !u!1 &1826857086
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,8 +669,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spt: {fileID: 2043084650}
   ept: {fileID: 1357214900}
-  segments: 8
-  length: 2
+  segments: 135
+  length: 1.5
 --- !u!1 &2043084649
 GameObject:
   m_ObjectHideFlags: 0
@@ -666,6 +683,7 @@ GameObject:
   - component: {fileID: 2043084650}
   - component: {fileID: 2043084651}
   - component: {fileID: 2043084652}
+  - component: {fileID: 2043084654}
   m_Layer: 0
   m_Name: From
   m_TagString: Untagged
@@ -720,7 +738,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2043084649}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.48065233, y: 5.5593324, z: 1.0129076}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
@@ -729,3 +747,19 @@ Transform:
   m_Father: {fileID: 1826857087}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2043084654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043084649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b6994f119598f043aef278b117287db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localRotation: {x: 0, y: 0, z: 0}
+  distances: {x: -0, y: 0, z: 0}
+  lastRotation: {x: -0, y: -0, z: -0, w: 1}
+  maximumDistance: 90
