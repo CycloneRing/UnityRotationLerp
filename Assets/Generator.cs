@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,11 @@ public class Generator : MonoBehaviour
     // Public Values
     public StartPoint spt;
     public EndPoint ept;
+    public Vector3 startPos;
+    public Vector3 endPos;
+    public float startRot;
+    public float endRot;
+    
     public int segments = 8;
     public float length = 2.0f;
 
@@ -15,45 +21,42 @@ public class Generator : MonoBehaviour
     private List<Vector3> genPts = new List<Vector3>();
     private List<Vector3> genExtraPts = new List<Vector3>();
 
+    
+
     // Generate Points
     void Update()
     {
+        startPos = spt.gameObject.transform.position;
+        endPos = ept.gameObject.transform.position;
+        
         genPts.Clear();
         genExtraPts.Clear();
 
-        var start = spt.gameObject.transform;
-        var end = ept.gameObject.transform;
+        //var start = spt.gameObject.transform;
+        //var end = ept.gameObject.transform;
+        
 
         // Base Points
         for (int i = 1; i < segments; i++)
         {
-            Vector3 pt = Vector3.Lerp(start.position, end.position, (i * 1.0f) / segments);
+            Vector3 pt = Vector3.Lerp(startPos, endPos, (i * 1.0f) / segments);
             genPts.Add(pt);
         }
 
+        var up = (endPos - startPos).normalized;
+        var baseRight = Vector3.Cross(up, new Vector3(0.343f, -0.234f, 0.612f)).normalized;
         // Extra points
         for (int i = 0; i < genPts.Count; i++)
         {
-            float blendValue = ConvertRange(0, genPts.Count, 0.0f, 1.0f, i);
-            var localEulerFrom = start.localEulerAngles;
-            var leftAngleFrom = spt.angleLeft;
-            var rightAngleFrom = spt.angleRight;
-
-            var localEulerTo = end.localEulerAngles;
-            var leftAngleTo = ept.angleLeft;
-            var rightAngleTo = ept.angleRight;
-
-            var localEulerBlend = LerpAngles(localEulerFrom, localEulerTo, blendValue);
-            var leftAngleBlend = Mathf.Lerp(leftAngleFrom, leftAngleTo, blendValue);
-            var rightAngleBlend = Mathf.Lerp(rightAngleFrom, rightAngleTo, blendValue);
-
-            var base_left_angle = Quaternion.Euler(localEulerBlend.x, localEulerBlend.y, localEulerBlend.z + leftAngleBlend) * Vector3.right;
-            var base_right_angle = Quaternion.Euler(localEulerBlend.x, localEulerBlend.y, localEulerBlend.z + -rightAngleBlend) * Vector3.right;
-            var leftPos = genPts[i] + -base_left_angle.normalized * length;
-            var rightPos = genPts[i] + base_right_angle.normalized * length;
-
-            genExtraPts.Add(leftPos);
-            genExtraPts.Add(rightPos);
+            var blendValue = i / (float)genPts.Count;
+            
+            var rot = Mathf.Lerp(startRot, endRot, blendValue);
+            var pt = Vector3.Lerp(startPos, endPos, blendValue);
+            var rightDir = Quaternion.AngleAxis(rot, up) * baseRight;
+            var leftDir = -rightDir;
+            
+            genExtraPts.Add(pt + rightDir);
+            genExtraPts.Add(pt + leftDir);
         }
     }
 
